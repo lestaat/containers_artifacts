@@ -1,0 +1,48 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: tripviewer
+spec:
+  selector:
+    matchLabels:
+      app: tripviewer
+  replicas: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: tripviewer
+    spec:
+      containers:
+      - name: tripviewer
+        image: registryrwm9547.azurecr.io/tripinsights/tripviewer:latest
+        envFrom:
+          - secretRef:
+              name: sql                                           
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+      restartPolicy: Always
+      tolerations:
+        - effect: NoSchedule
+          key: value1
+          operator: Exists
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripviewer
+  labels:
+    app: tripviewer
+spec:
+  selector:
+    app: tripviewer
+  ports:
+    - port: 80
+      name: http
+      targetPort: 80

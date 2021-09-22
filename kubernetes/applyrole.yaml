@@ -1,0 +1,37 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: devs-access
+rules:
+- apiGroups: [""]
+  resources:
+  - configmaps
+  - daemonsets
+  - deployments
+  - namespaces/status
+  - podpreset
+  - pods
+  - pods/log
+  - replicasets
+  - secrets
+  - services
+  - statefulsets
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: devs-accesses
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: devs-access
+subjects:
+- kind: User
+  name: 909fa203-09d6-4476-a7cd-f874774cbf80
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: 2f8b7d51-9046-4537-8fe5-5533e815b787
+  apiGroup: rbac.authorization.k8s.io

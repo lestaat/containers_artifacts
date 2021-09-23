@@ -4,19 +4,41 @@ metadata:
   namespace: api
   name: devs-write-access
 rules:
-- apiGroups: [""]
+- apiGroups: 
+  - ""
+  - batch
+  - extensions
+  - apps
+  - networking.k8s.io
+  - metrics.k8s.io
+  - autoscaling
+  - policy
+  - events.k8s.io
   resources:
   - configmaps
+  - cronjobs
+  - controllerrevisions
   - daemonsets
   - deployments
+  - horizontalpodautoscalers
+  - ingresses
+  - jobs
   - namespaces/status
+  - persistentvolumeclaims
+  - persistentvolumes
+  - poddisruptionbudget
   - podpreset
   - pods
   - pods/log
+  - pods/exec
+  - pods/portforward
+  - podtemplates
   - replicasets
+  - replicationcontrollers
   - secrets
   - services
   - statefulsets
+  - limitranges
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -25,19 +47,41 @@ metadata:
   namespace: api
   name: devs-read-access
 rules:
-- apiGroups: [""]
+- apiGroups: 
+  - ""
+  - batch
+  - extensions
+  - apps
+  - networking.k8s.io
+  - metrics.k8s.io
+  - autoscaling
+  - policy
+  - events.k8s.io
   resources:
   - configmaps
+  - cronjobs
+  - controllerrevisions
   - daemonsets
   - deployments
+  - horizontalpodautoscalers
+  - ingresses
+  - jobs
   - namespaces/status
+  - persistentvolumeclaims
+  - persistentvolumes
+  - poddisruptionbudget
   - podpreset
   - pods
   - pods/log
+  - pods/exec
+  - pods/portforward
+  - podtemplates
   - replicasets
+  - replicationcontrollers
   - secrets
   - services
   - statefulsets
+  - limitranges
   verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -51,7 +95,7 @@ roleRef:
   name: devs-write-access
 subjects:
 - kind: User
-  name: 909fa203-09d6-4476-a7cd-f874774cbf80
+  name: apidev@msftopenhack7009ops.onmicrosoft.com 
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -65,5 +109,5 @@ roleRef:
   name: devs-read-access
 subjects:
 - kind: User
-  name: 2f8b7d51-9046-4537-8fe5-5533e815b787
+  name: webdev@msftopenhack7009ops.onmicrosoft.com
   apiGroup: rbac.authorization.k8s.io

@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: user
+  name: userprofile
   labels:
-    app: user
+    app: userprofilee
 spec:
   selector:
-    app: user
+    app: userprofile
   ports:
     - port: 80
       name: http
@@ -28,6 +28,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: user
+            name: userprofile
             port:
               number: 80

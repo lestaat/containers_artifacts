@@ -31,3 +31,17 @@ spec:
             name: trips
             port:
               number: 80
+      - path: /Trips/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: trips
+            port:
+              number: 80
+      - path: /UserProfile/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: trips
+            port:
+              number: 80
